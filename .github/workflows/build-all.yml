@@ -120,7 +120,7 @@ jobs:
           sed -i 's/mmc1/scsi mmc1/' include/configs/rockchip-common.h
           echo "CONFIG_CMD_KASLRSEED=y" >> configs/orangepi-5-plus-rk3588_defconfig
           echo "CONFIG_DM_RNG=y" >> configs/orangepi-5-plus-rk3588_defconfig
-          make orangepi-5-rk3588s_defconfig
+          make orangepi-5-plus-rk3588_defconfig
           make
           cp u-boot-rockchip.bin ..
           cp u-boot-rockchip.bin ../..
@@ -148,7 +148,7 @@ jobs:
       - name: disk image
         run: |
           sleep 2
-          sudo /bin/bash ./disk_image.sh arm64 orangepi-5 rk3588s-orangepi-5
+          sudo /bin/bash ./disk_image.sh arm64 orangepi-5-plus rk3588-orangepi-5-plus
 
       - name: Upload a diisk image Artifact
         uses: actions/upload-artifact@v4.5.0
