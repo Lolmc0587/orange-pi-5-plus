@@ -104,7 +104,7 @@ jobs:
           debootstrap flex libssl-dev bc rsync kmod cpio xz-utils fakeroot parted \
           udev dosfstools uuid-runtime git-lfs device-tree-compiler python3 \
           python-is-python3 fdisk bc debhelper python3-pyelftools python3-setuptools \
-          python3-pkg-resources swig libfdt-dev libpython3-dev gawk \
+          python3-pkg-resources swig libfdt-dev libpython3-dev gawk \configs/orangepi-5-plus-rk3588_defconfig
           build-essential ncurses-dev xz-utils libssl-dev bc flex \
           libelf-dev bison libgnutls28-dev
           sudo mount -t tmpfs -o size=1G tmpfs arm64
@@ -120,6 +120,8 @@ jobs:
           sed -i 's/mmc1/scsi mmc1/' include/configs/rockchip-common.h
           echo "CONFIG_CMD_KASLRSEED=y" >> configs/orangepi-5-plus-rk3588_defconfig
           echo "CONFIG_DM_RNG=y" >> configs/orangepi-5-plus-rk3588_defconfig
+          echo "CONFIG_PSI=y" >> configs/orangepi-5-plus-rk3588_defconfig
+          echo "CONFIG_PSI_DEFAULT_DISABLED=y" >> configs/orangepi-5-plus-rk3588_defconfig
           make orangepi-5-plus-rk3588_defconfig
           make
           cp u-boot-rockchip.bin ..
