@@ -151,7 +151,7 @@ chroot $1 apt-get -y install u-boot-tools u-boot-menu
 
 # Default kernel command line arguments
 echo -n "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > $1/etc/kernel/cmdline
-echo -n " quiet splash plymouth.ignore-serial-consoles" >> $1/etc/kernel/cmdline
+echo -n " quiet splash plymouth.ignore-serial-consoles psi=1" >> $1/etc/kernel/cmdline
 
 # Override u-boot-menu config
 mkdir -p $1/usr/share/u-boot-menu/conf.d
