@@ -29,7 +29,7 @@ CONFIG_BT=y
 
 # For USB Bluetooth dongles:
 CONFIG_BT_USB=m
-
+CONFIG_BT_HCIBTUSB=m
 # For UART-attached Bluetooth (common on SBCs):
 CONFIG_BT_HCIUART=m
 CONFIG_BT_HCIUART_BCM=y 
