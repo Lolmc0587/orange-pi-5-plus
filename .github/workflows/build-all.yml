@@ -148,7 +148,7 @@ jobs:
           sed -i 's/mmc1/scsi mmc1/' include/configs/rockchip-common.h
           echo "CONFIG_CMD_KASLRSEED=y" >> configs/orangepi-5-plus-rk3588_defconfig
           echo "CONFIG_DM_RNG=y" >> configs/orangepi-5-plus-rk3588_defconfig
-          make orangepi-5-rk3588_defconfig
+          make orangepi-5-plus-rk3588_defconfig
           make
           cp u-boot-rockchip.bin ..
           cp u-boot-rockchip.bin ../..
