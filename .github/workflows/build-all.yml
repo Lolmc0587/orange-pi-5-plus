@@ -51,8 +51,7 @@ jobs:
           cd linux
           # sed -i 's#opp-300000000#/* opp-300000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
           # sed -i 's#opp-600000000#*/ opp-600000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-          make olddefconfig
-          # make defconfig
+          
 
           # rkvdec
           # echo "CONFIG_VIDEO_HANTRO=m" >> .config
@@ -81,6 +80,10 @@ jobs:
           echo "CONFIG_ANDROID_BINDER_IPC=y" >> .config
           echo 'CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder,anbox-binder,anbox-hwbinder,anbox-vndbinder"' >> .config
           echo "CONFIG_PSI=y" >> .config
+          
+          make olddefconfig
+          # make defconfig
+          
           $MAKE -j$(nproc)  all modules dtbs
           export INSTALL_PATH="../${DEBIAN_PACKAGE}_arm64"
           export KERNEL_BASE_PACKAGE="${DEBIAN_PACKAGE}_arm64"
