@@ -31,8 +31,8 @@ jobs:
           #git clone --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
           git clone --depth 1 https://github.com/torvalds/linux.git
           #now=`cat linux-next/localversion-next|sed 's/-next-//'`
-          now=`date +"%Y%m%d"`
           #rm      linux-next/localversion-next
+          now=`date +"%Y%m%d"`
           #cp ../1-config.txt linux-next/.config
           cp ../1-config.txt linux/.config
           #head -5 linux-next/Makefile | sed 's# ##g' > ./tmp_var.txt
@@ -50,7 +50,7 @@ jobs:
           cd linux
           # sed -i 's#opp-300000000#/* opp-300000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
           # sed -i 's#opp-600000000#*/ opp-600000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-          sed -i 's/vcc5v0_usb20_en/vcc5v0_host_en/g' arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+          make olddefconfig
           $MAKE -j$(nproc)  all modules dtbs
           export INSTALL_PATH="../${DEBIAN_PACKAGE}_arm64"
           export KERNEL_BASE_PACKAGE="${DEBIAN_PACKAGE}_arm64"
