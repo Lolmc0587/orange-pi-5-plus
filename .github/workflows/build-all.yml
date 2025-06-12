@@ -62,7 +62,8 @@ jobs:
           sed -i '/CONFIG_BT/d' .config
           sed -i '/CONFIG_BT_HCIBTUSB/d' .config
           sed -i '/CONFIG_BT_HCIUART/d' .config
-          
+
+          echo "CONFIG_BT=y" >> .config
           echo "CONFIG_BT_USB=m" >> .config
           echo "CONFIG_BT_HCIBTUSB=m" >> .config
           echo "CONFIG_BT_HCIUART=m" >> .config
