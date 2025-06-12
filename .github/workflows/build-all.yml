@@ -54,6 +54,10 @@ jobs:
           
 
           # rkvdec
+          sed -i '/CONFIG_VIDEO_HANTRO/d' .config
+          sed -i '/CONFIG_VIDEO_HANTRO_ROCKCHIP/d' .config
+          sed -i '/CONFIG_VIDEO_ROCKCHIP_VDEC/d' .config
+          
           echo "CONFIG_VIDEO_HANTRO=m" >> .config
           echo "CONFIG_VIDEO_HANTRO_ROCKCHIP=y" >> .config
           echo "CONFIG_VIDEO_ROCKCHIP_VDEC=m" >> .config
