@@ -52,9 +52,9 @@ jobs:
           # sed -i 's#opp-600000000#*/ opp-600000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
           # make olddefconfig
           make defconfig
-          echo "CONFIG_VIDEO_HANTRO=m" >> linux/.config
-          echo "CONFIG_VIDEO_HANTRO_ROCKCHIP=y" >> linux/.config
-          echo "CONFIG_VIDEO_ROCKCHIP_VDEC=m" >> linux/.config
+          echo "CONFIG_VIDEO_HANTRO=m" >> .config
+          echo "CONFIG_VIDEO_HANTRO_ROCKCHIP=y" >> .config
+          echo "CONFIG_VIDEO_ROCKCHIP_VDEC=m" >> .config
           $MAKE -j$(nproc)  all modules dtbs
           export INSTALL_PATH="../${DEBIAN_PACKAGE}_arm64"
           export KERNEL_BASE_PACKAGE="${DEBIAN_PACKAGE}_arm64"
