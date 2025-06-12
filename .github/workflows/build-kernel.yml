@@ -34,7 +34,7 @@ jobs:
           #rm      linux-next/localversion-next
           now=`date +"%Y%m%d"`
           #cp ../1-config.txt linux-next/.config
-          #cp ../1-config.txt linux/.config
+          cp ../1-config.txt linux/.config
           #head -5 linux-next/Makefile | sed 's# ##g' > ./tmp_var.txt
           head -5 linux/Makefile | sed 's# ##g' > ./tmp_var.txt
           . ./tmp_var.txt
@@ -53,6 +53,10 @@ jobs:
           
 
           # rkvdec
+          sed -i '/CONFIG_VIDEO_HANTRO/d' .config
+          sed -i '/CONFIG_VIDEO_HANTRO_ROCKCHIP/d' .config
+          sed -i '/CONFIG_VIDEO_ROCKCHIP_VDEC/d' .config
+          
           echo "CONFIG_VIDEO_HANTRO=m" >> .config
           echo "CONFIG_VIDEO_HANTRO_ROCKCHIP=y" >> .config
           echo "CONFIG_VIDEO_ROCKCHIP_VDEC=m" >> .config
@@ -80,9 +84,10 @@ jobs:
           echo "CONFIG_ANDROID_BINDER_IPC=y" >> .config
           echo 'CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder,anbox-binder,anbox-hwbinder,anbox-vndbinder"' >> .config
           echo "CONFIG_PSI=y" >> .config
-
+          
           make olddefconfig
           # make defconfig
+          
           $MAKE -j$(nproc)  all modules dtbs
           export INSTALL_PATH="../${DEBIAN_PACKAGE}_arm64"
           export KERNEL_BASE_PACKAGE="${DEBIAN_PACKAGE}_arm64"
