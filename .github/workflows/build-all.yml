@@ -51,8 +51,8 @@ jobs:
           cd linux
           # sed -i 's#opp-300000000#/* opp-300000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
           # sed -i 's#opp-600000000#*/ opp-600000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-          # make olddefconfig
-          make defconfig
+          make olddefconfig
+          # make defconfig
 
           # rkvdec
           # echo "CONFIG_VIDEO_HANTRO=m" >> .config
