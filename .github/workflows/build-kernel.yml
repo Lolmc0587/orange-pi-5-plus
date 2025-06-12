@@ -75,11 +75,7 @@ jobs:
           echo "CONFIG_MEDIA_CONTROLLER=y" >> .config
           sed -i '/^CONFIG_ARCH_ROCKCHIP=/d' .config
           echo "CONFIG_ARCH_ROCKCHIP=y" >> .config
-          sed -i '/^CONFIG_VIDEO_HANTRO=/d' .config
-          echo "CONFIG_VIDEO_HANTRO=y" >> .config
-          sed -i '/^CONFIG_VIDEO_HANTRO_ROCKCHIP=/d' .config
-          echo "CONFIG_VIDEO_HANTRO_ROCKCHIP=y" >> .config
-          make olddefconfig
+        
 
           # Bluetooth
           sed -i '/CONFIG_BT/d' .config
