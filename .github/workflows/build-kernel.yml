@@ -60,6 +60,26 @@ jobs:
           echo "CONFIG_VIDEO_HANTRO=m" >> .config
           echo "CONFIG_VIDEO_HANTRO_ROCKCHIP=y" >> .config
           echo "CONFIG_VIDEO_ROCKCHIP_VDEC=m" >> .config
+          
+          sed -i '/^CONFIG_MEDIA_SUPPORT=/d' .config
+          echo "CONFIG_MEDIA_SUPPORT=y" >> .config
+          sed -i '/^CONFIG_V4L2_MEM2MEM_DEV=/d' .config
+          echo "CONFIG_V4L2_MEM2MEM_DEV=y" >> .config
+          sed -i '/^CONFIG_VIDEO_DEV=/d' .config
+          echo "CONFIG_VIDEO_DEV=y" >> .config
+          sed -i '/^CONFIG_VIDEOBUF2_DMA_CONTIG=/d' .config
+          echo "CONFIG_VIDEOBUF2_DMA_CONTIG=y" >> .config
+          sed -i '/^CONFIG_VIDEOBUF2_VMALLOC=/d' .config
+          echo "CONFIG_VIDEOBUF2_VMALLOC=y" >> .config
+          sed -i '/^CONFIG_MEDIA_CONTROLLER=/d' .config
+          echo "CONFIG_MEDIA_CONTROLLER=y" >> .config
+          sed -i '/^CONFIG_ARCH_ROCKCHIP=/d' .config
+          echo "CONFIG_ARCH_ROCKCHIP=y" >> .config
+          sed -i '/^CONFIG_VIDEO_HANTRO=/d' .config
+          echo "CONFIG_VIDEO_HANTRO=y" >> .config
+          sed -i '/^CONFIG_VIDEO_HANTRO_ROCKCHIP=/d' .config
+          echo "CONFIG_VIDEO_HANTRO_ROCKCHIP=y" >> .config
+          make olddefconfig
 
           # Bluetooth
           sed -i '/CONFIG_BT/d' .config
