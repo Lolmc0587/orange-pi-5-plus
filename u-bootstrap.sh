@@ -115,6 +115,12 @@ python3-pkg-resources swig libfdt-dev libpython3-dev gawk \
 git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex \
 libelf-dev bison sudo libgnutls28-dev
 
+# extract mali_csffw.bin.zst
+if [ -f $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst ]; then
+    unzstd $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst
+else
+    echo "Warning: mali_csffw.bin.zst not found, skipping extraction."
+fi
 # mesa
 chroot $1 apt-get -y install flex bison python3-mako libwayland-egl-backend-dev libxcb-dri3-dev libxcb-dri2-0-dev libxcb-glx0-dev libx11-xcb-dev libxcb-present-dev libxcb-sync-dev libxxf86vm-dev libxshmfence-dev libxrandr-dev libwayland-dev libxdamage-dev libxext-dev libxfixes-dev x11proto-dri2-dev  x11proto-present-dev x11proto-gl-dev x11proto-xf86vidmode-dev libexpat1-dev libudev-dev gettext mesa-utils xutils-dev libpthread-stubs0-dev ninja-build bc flex bison cmake git valgrind llvm  python3-pip pkg-config zlib1g-dev wayland-protocols libxcb-shm0-dev meson
 chroot $1 apt-get -y purge cloud-init flash-kernel fwupd
