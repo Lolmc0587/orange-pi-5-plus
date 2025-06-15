@@ -113,7 +113,7 @@ udev dosfstools uuid-runtime git-lfs device-tree-compiler python3 \
 python-is-python3 fdisk bc debhelper python3-pyelftools python3-setuptools \
 python3-pkg-resources swig libfdt-dev libpython3-dev gawk \
 git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex \
-libelf-dev bison sudo libgnutls28-dev
+libelf-dev bison sudo libgnutls28-dev curl
 
 # extract mali_csffw.bin.zst
 if [ -f $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst ]; then
@@ -142,6 +142,11 @@ sed -i 's/#ADD_EXTRA_GROUPS=.*/ADD_EXTRA_GROUPS=1/g' $1/etc/adduser.conf
 mkdir $1/kkk && cp next-*.deb $1/kkk
 chroot $1 /bin/bash -c "cd kkk && dpkg -i next-*.deb"
 
+# waydroid
+chroot $1 /bin/bash -c "curl -fsS https://repo.waydro.id | bash && apt install waydroid -y"
+
+# brave
+chroot $1 /bin/bash -c "curl -fsS https://dl.brave.com/install.sh | sh"
 # mesa
 mkdir $1/bbb
 chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://gitlab.freedesktop.org/mesa/drm && cd drm/ && mkdir build && cd build/ && meson && ninja install"
