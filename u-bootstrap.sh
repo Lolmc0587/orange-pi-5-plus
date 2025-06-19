@@ -57,7 +57,7 @@ if [ $mem_size -gt 15 ]; then
 	mount -t tmpfs -o size=10G tmpfs $chroot_dir
 fi
 
-suite=noble
+suite=plucky
 Uri="http://ports.ubuntu.com/ubuntu-ports"
 	debootstrap --arch=arm64 $suite arm64 $Uri
 
