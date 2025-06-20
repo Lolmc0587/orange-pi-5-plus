@@ -8,8 +8,8 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-kernel=`ls ./next-*.deb|wc -l`
-if [ $kernel -ne 1 ]; then
+kernel=`ls *.deb|wc -l`
+if [ $kernel -ne 2 ]; then
 	echo "Build kernel first"
 	exit 1
 fi
@@ -115,14 +115,13 @@ python3-pkg-resources swig libfdt-dev libpython3-dev gawk \
 git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex \
 libelf-dev bison sudo libgnutls28-dev curl
 
-# extract mali_csffw.bin.zst
-if [ -f $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst ]; then
-    unzstd $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst
-else
-    echo "Warning: mali_csffw.bin.zst not found, skipping extraction."
-fi
 # mesa
-chroot $1 apt-get -y install flex bison python3-mako libwayland-egl-backend-dev libxcb-dri3-dev libxcb-dri2-0-dev libxcb-glx0-dev libx11-xcb-dev libxcb-present-dev libxcb-sync-dev libxxf86vm-dev libxshmfence-dev libxrandr-dev libwayland-dev libxdamage-dev libxext-dev libxfixes-dev x11proto-dri2-dev  x11proto-present-dev x11proto-gl-dev x11proto-xf86vidmode-dev libexpat1-dev libudev-dev gettext mesa-utils xutils-dev libpthread-stubs0-dev ninja-build bc flex bison cmake git valgrind llvm  python3-pip pkg-config zlib1g-dev wayland-protocols libxcb-shm0-dev meson
+chroot $1 apt-get -y install flex bison python3-mako libwayland-egl-backend-dev libxcb-dri3-dev libxcb-dri2-0-dev libxcb-glx0-dev libx11-xcb-dev \
+libxcb-present-dev libxcb-sync-dev libxxf86vm-dev libxshmfence-dev libxrandr-dev libwayland-dev libxdamage-dev libxext-dev libxfixes-dev \
+x11proto-dri2-dev  x11proto-present-dev x11proto-gl-dev x11proto-xf86vidmode-dev libexpat1-dev libudev-dev gettext mesa-utils xutils-dev \
+libpthread-stubs0-dev ninja-build bc flex bison cmake git valgrind python3-pip pkg-config zlib1g-dev wayland-protocols libxcb-shm0-dev meson \
+llvm-20-dev libclang-cpp20-dev libclc-20-dev libllvmspirvlib-20-dev spirv-tools libopencl-clang-20-dev clang-20 libclang-20-dev llvm-spirv-20 \
+libclang-common-20-dev
 chroot $1 apt-get -y purge cloud-init flash-kernel fwupd
 
 chroot $1 apt-get update
@@ -135,23 +134,22 @@ sed -i 's/#ADD_EXTRA_GROUPS=.*/ADD_EXTRA_GROUPS=1/g' $1/etc/adduser.conf
     if ! id "oem" &>/dev/null; then
         chroot $1 /usr/sbin/useradd -d /home/oem -G adm,sudo,video -m -N -u 29999 oem
         chroot $1 /usr/sbin/oem-config-prepare --quiet
-        chroot $1 touch "/var/lib/oem-config/run"
+        chroot $1 touch "/var/lib/oem-config/run" 
     fi
 
 # kernel
-mkdir $1/kkk && cp next-*.deb $1/kkk
-chroot $1 /bin/bash -c "cd kkk && dpkg -i next-*.deb"
+mkdir $1/kkk && cp *.deb $1/kkk
+chroot $1 /bin/bash -c "cd kkk && dpkg -i *.deb"
 
+# mesa
+mkdir $1/bbb
+chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://gitlab.freedesktop.org/mesa/drm && cd drm/ && mkdir build && cd build/ && meson && ninja install"
+chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 -b mesa-25.1.3 https://gitlab.freedesktop.org/mesa/mesa.git && cd mesa && mkdir build && cd build && meson -Dvulkan-drivers=panfrost -Dgallium-drivers=panfrost -Dlibunwind=false -Dprefix=/opt/panfrost && ninja install && echo /opt/panfrost/lib/aarch64-linux-gnu | tee /etc/ld.so.conf.d/0-panfrost.conf && echo 'VK_DRIVER_FILES="/opt/panfrost/share/vulkan/icd.d/panfrost_icd.aarch64.json"' >> /etc/environment"
 # waydroid
 chroot $1 /bin/bash -c "curl -fsS https://repo.waydro.id | bash && apt install waydroid -y"
 
 # brave
 chroot $1 /bin/bash -c "curl -fsS https://dl.brave.com/install.sh | sh"
-# mesa
-mkdir $1/bbb
-chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://gitlab.freedesktop.org/mesa/drm && cd drm/ && mkdir build && cd build/ && meson && ninja install"
-chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 -b mesa-25.1.3 https://gitlab.freedesktop.org/mesa/mesa.git && cd mesa && mkdir build && cd build && meson -Dvulkan-drivers= -Dgallium-drivers=panfrost,swrast -Dlibunwind=false -Dprefix=/opt/panfrost && ninja install && echo /opt/panfrost/lib/aarch64-linux-gnu | tee /etc/ld.so.conf.d/0-panfrost.conf"
-
 echo "DISK usage"
 df $1  
 rm -rf $1/aaa $1/bbb $1/kkk
@@ -161,7 +159,7 @@ echo "kernel_version=$kernel_version" > ./kernel_version
 chroot $1 apt-get -y install u-boot-tools u-boot-menu
 
 # Default kernel command line arguments
-echo -n "rootwait rw psi=1 console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > $1/etc/kernel/cmdline
+echo -n "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > $1/etc/kernel/cmdline
 echo -n " quiet splash plymouth.ignore-serial-consoles" >> $1/etc/kernel/cmdline
 
 # Override u-boot-menu config
