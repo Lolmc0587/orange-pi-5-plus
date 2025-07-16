@@ -8,8 +8,8 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-kernel=`ls *.deb|wc -l`
-if [ $kernel -ne 2 ]; then
+kernel=`ls ./next-*.deb|wc -l`
+if [ $kernel -ne 1 ]; then
 	echo "Build kernel first"
 	exit 1
 fi
