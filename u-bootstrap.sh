@@ -139,17 +139,13 @@ sed -i 's/#ADD_EXTRA_GROUPS=.*/ADD_EXTRA_GROUPS=1/g' $1/etc/adduser.conf
 
 # kernel
 mkdir $1/kkk && cp *.deb $1/kkk
-chroot $1 /bin/bash -c "cd kkk && dpkg -i *.deb"
+chroot $1 /bin/bash -c "cd kkk && dpzkg -i *.deb"
 
 # mesa
 mkdir $1/bbb
 chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://gitlab.freedesktop.org/mesa/drm && cd drm/ && mkdir build && cd build/ && meson && ninja install"
 chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 -b mesa-25.1.3 https://gitlab.freedesktop.org/mesa/mesa.git && cd mesa && mkdir build && cd build && meson -Dvulkan-drivers=panfrost -Dgallium-drivers=panfrost -Dlibunwind=false -Dprefix=/opt/panfrost && ninja install && echo /opt/panfrost/lib/aarch64-linux-gnu | tee /etc/ld.so.conf.d/0-panfrost.conf && echo 'VK_DRIVER_FILES="/opt/panfrost/share/vulkan/icd.d/panfrost_icd.aarch64.json"' >> /etc/environment"
-# waydroid
-chroot $1 /bin/bash -c "curl -fsS https://repo.waydro.id | bash && apt install waydroid -y"
 
-# brave
-chroot $1 /bin/bash -c "curl -fsS https://dl.brave.com/install.sh | sh"
 echo "DISK usage"
 df $1  
 rm -rf $1/aaa $1/bbb $1/kkk
