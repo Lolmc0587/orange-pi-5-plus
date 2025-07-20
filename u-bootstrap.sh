@@ -154,6 +154,8 @@ chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 -b mesa-25.0.7 https://git
 # chroot $1 add-apt-repository ppa:kisak/kisak-mesa
 # chroot $1 apt-get update
 # chroot $1 apt-get dist-upgrade -y
+# rtw88
+# chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://github.com/lwfinger/rtw88.git && cd rtw88 && dkms install $PWD"
 
 echo "DISK usage"
 df $1  

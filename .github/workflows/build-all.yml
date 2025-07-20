@@ -89,10 +89,11 @@ jobs:
           make olddefconfig
           # make defconfig
           
-          mkdir -p $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE
+          
           $MAKE modules_prepare
           $MAKE -j$(nproc)  all modules dtbs 
           export INSTALL_PATH="../${DEBIAN_PACKAGE}_arm64"
+          mkdir -p $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE
           export KERNEL_BASE_PACKAGE="${DEBIAN_PACKAGE}_arm64"
           rm -rf $INSTALL_PATH && mkdir -p $INSTALL_PATH
           $MAKE install headers_install modules_install vdso_install dtbs_install INSTALL_MOD_STRIP=1 INSTALL_HDR_PATH=$INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE INSTALL_MOD_PATH=$INSTALL_PATH INSTALL_FW_PATH=$INSTALL_PATH/lib/firmware/$PACKAGE_RELEASE INSTALL_DTBS_PATH=$INSTALL_PATH/boot/dtbs/$PACKAGE_RELEASE/device-tree
@@ -100,8 +101,8 @@ jobs:
           mv $INSTALL_PATH/vmlinu?-$PACKAGE_RELEASE $INSTALL_PATH/boot
           mv $INSTALL_PATH/config-$PACKAGE_RELEASE $INSTALL_PATH/boot
           mv $INSTALL_PATH/System.map-$PACKAGE_RELEASE $INSTALL_PATH/boot
-          ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/$(uname -r)/build
-          ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/$(uname -r)/source
+          ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/linux-headers-$PACKAGE_RELEASE/build
+          ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/linux-headers-$PACKAGE_RELEASE/source
           cd ..
           mkdir -p $KERNEL_BASE_PACKAGE/DEBIAN/
           cat > $KERNEL_BASE_PACKAGE/DEBIAN/control << HEREDOC
