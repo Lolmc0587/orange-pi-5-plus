@@ -101,8 +101,8 @@ jobs:
           mv $INSTALL_PATH/vmlinu?-$PACKAGE_RELEASE $INSTALL_PATH/boot
           mv $INSTALL_PATH/config-$PACKAGE_RELEASE $INSTALL_PATH/boot
           mv $INSTALL_PATH/System.map-$PACKAGE_RELEASE $INSTALL_PATH/boot
-          ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/linux-headers-$PACKAGE_RELEASE/build
-          ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/linux-headers-$PACKAGE_RELEASE/source
+          # ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/linux-headers-$PACKAGE_RELEASE/build
+          # ln -sfT $INSTALL_PATH/usr/src/linux-headers-$PACKAGE_RELEASE /lib/modules/linux-headers-$PACKAGE_RELEASE/source
           cd ..
           mkdir -p $KERNEL_BASE_PACKAGE/DEBIAN/
           cat > $KERNEL_BASE_PACKAGE/DEBIAN/control << HEREDOC
