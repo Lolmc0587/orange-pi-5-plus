@@ -113,7 +113,7 @@ udev dosfstools uuid-runtime git-lfs device-tree-compiler python3 \
 python-is-python3 fdisk bc debhelper python3-pyelftools python3-setuptools \
 python3-pkg-resources swig libfdt-dev libpython3-dev gawk \
 git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex \
-libelf-dev bison sudo libgnutls28-dev curl
+libelf-dev bison sudo libgnutls28-dev curl dkms
 
 # extract mali_csffw.bin.zst
 if [ -f $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst ]; then
@@ -155,7 +155,7 @@ chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 -b mesa-25.0.7 https://git
 # chroot $1 apt-get update
 # chroot $1 apt-get dist-upgrade -y
 # rtw88
-# chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://github.com/lwfinger/rtw88.git && cd rtw88 && dkms install $PWD"
+chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://github.com/lwfinger/rtw88.git && cd rtw88 && dkms install $PWD"
 
 echo "DISK usage"
 df $1  
