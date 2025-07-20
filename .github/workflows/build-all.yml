@@ -156,7 +156,7 @@ jobs:
           git clone --depth 1 https://github.com/rockchip-linux/rkbin
           DDR=`ls rkbin/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz*.bin`
           BL31=`ls rkbin/bin/rk35/rk3588_bl31*.elf`
-          git clone --depth 1 -b v2025.04 https://source.denx.de/u-boot/u-boot.git
+          git clone --depth 1 -b v2025.04 https://github.com/u-boot/u-boot.git
           cd u-boot
           export BL31=../$BL31
           export ROCKCHIP_TPL="../$DDR"
