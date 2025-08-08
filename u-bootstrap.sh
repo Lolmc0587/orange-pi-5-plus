@@ -141,6 +141,12 @@ sed -i 's/#ADD_EXTRA_GROUPS=.*/ADD_EXTRA_GROUPS=1/g' $1/etc/adduser.conf
 mkdir $1/kkk && cp *.deb $1/kkk
 chroot $1 /bin/bash -c "cd kkk && dpkg -i *.deb"
 
+if [ -f $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst ]; then
+    unzstd $1/lib/firmware/arm/mali/arch10.8/mali_csffw.bin.zst
+else
+    echo "Warning: mali_csffw.bin.zst not found, skipping extraction."
+fi
+
 # mesa
 mkdir $1/bbb
 chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://gitlab.freedesktop.org/mesa/drm && cd drm/ && mkdir build && cd build/ && meson && ninja install"
