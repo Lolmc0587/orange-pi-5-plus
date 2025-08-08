@@ -147,6 +147,13 @@ else
     echo "Warning: mali_csffw.bin.zst not found, skipping extraction."
 fi
 
+
+# waydroid
+chroot $1 /bin/bash -c "curl -fsS https://repo.waydro.id | bash && apt install waydroid -y"
+
+# brave
+chroot $1 /bin/bash -c "curl -fsS https://dl.brave.com/install.sh | sh"
+
 # mesa
 mkdir $1/bbb
 chroot $1 /bin/bash -c "cd bbb && git clone --depth 1 https://gitlab.freedesktop.org/mesa/drm && cd drm/ && mkdir build && cd build/ && meson && ninja install"
