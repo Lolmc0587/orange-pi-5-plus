@@ -141,7 +141,12 @@ jobs:
           libelf-dev bison libgnutls28-dev
           sudo mount -t tmpfs -o size=1G tmpfs arm64
           cd arm64
-          git clone --depth 1 -b 42094ed https://github.com/rockchip-linux/rkbin
+          git clone --depth 1 https://github.com/rockchip-linux/rkbin
+
+          cd rkbin 
+          git checkout 42094ed
+          cd ..
+          
           DDR=`ls rkbin/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz*.bin`
           BL31=`ls rkbin/bin/rk35/rk3588_bl31*.elf`
           git clone --depth 1 -b v2025.04 https://source.denx.de/u-boot/u-boot.git
