@@ -141,7 +141,7 @@ jobs:
           libelf-dev bison libgnutls28-dev
           sudo mount -t tmpfs -o size=1G tmpfs arm64
           cd arm64
-          git clone --no-checkout https://github.com/rockchip-linux/rkbin
+          git clone https://github.com/rockchip-linux/rkbin
 
           # cd rkbin 
           # git checkout 42094ed
