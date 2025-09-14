@@ -144,8 +144,6 @@ jobs:
         if: false
         run: |
           sleep 2
-          mkdir -p arm64
-          sudo mount -t tmpfs -o size=6G tmpfs arm64
           sudo apt-get -y install  build-essential gcc-aarch64-linux-gnu bison \
           qemu-user-static qemu-system-arm qemu-efi-aarch64 binfmt-support \
           debootstrap flex libssl-dev bc rsync kmod cpio xz-utils fakeroot parted \
