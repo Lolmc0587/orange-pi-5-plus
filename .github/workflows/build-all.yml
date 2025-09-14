@@ -149,7 +149,7 @@ jobs:
           
           DDR=`ls rkbin/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz*.bin`
           BL31=`ls rkbin/bin/rk35/rk3588_bl31*.elf`
-          git clone --depth 1 -b v2025.04 https://source.denx.de/u-boot/u-boot.git
+          git clone --depth 1 -b v2025.01 https://source.denx.de/u-boot/u-boot.git
           cd u-boot
           export BL31=../$BL31
           export ROCKCHIP_TPL="../$DDR"
@@ -157,7 +157,7 @@ jobs:
           sed -i 's/mmc1/scsi mmc1/' include/configs/rockchip-common.h
           # sed -i 's/#ifndef CONFIG_XPL_BUILD/#ifndef CONFIG_XPL_BUILD\n\n# define BOOT_TARGET_DEVICES_SCSI(func)  func(SCSI, scsi, 0, 0, 1) func(SCSI, scsi, 0, 0, 2)/' include/configs/rockchip-common.h
           make orangepi-5-plus-rk3588_defconfig 
-          make
+          make V=1
           cp u-boot-rockchip.bin ..
           cp u-boot-rockchip.bin ../..
 
