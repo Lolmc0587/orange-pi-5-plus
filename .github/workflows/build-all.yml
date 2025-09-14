@@ -25,6 +25,7 @@ jobs:
 
 
       - name: Clone
+        if: false 
         run: |
           mkdir arm64
           sudo mount -t tmpfs -o size=6G tmpfs arm64
@@ -116,6 +117,7 @@ jobs:
           cd ..
           
       - name: Upload a kernel
+        if: false
         uses: actions/upload-artifact@v4.5.0
         with:
         # A file, directory or wildcard pattern that describes what to upload
@@ -126,11 +128,14 @@ jobs:
           if-no-files-found: error
 
       - name: disk kernel
+        if: false 
         run: sudo umount arm64
 
       - name: u-boot
         run: |
           sleep 2
+          mkdir -p arm64
+          sudo mount -t tmpfs -o size=6G tmpfs arm64
           sudo apt-get -y install  build-essential gcc-aarch64-linux-gnu bison \
           qemu-user-static qemu-system-arm qemu-efi-aarch64 binfmt-support \
           debootstrap flex libssl-dev bc rsync kmod cpio xz-utils fakeroot parted \
