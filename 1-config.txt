@@ -1069,7 +1069,7 @@ CONFIG_ARCH_HAS_USER_SHADOW_STACK=y
 # CONFIG_DAMON is not set
 # end of Data Access Monitoring
 # end of Memory Management options
-
+CONFIG_ACCEL_ROCKCHIP_NPU_ROCKET=y
 CONFIG_NET=y
 CONFIG_NET_INGRESS=y
 CONFIG_NET_EGRESS=y
