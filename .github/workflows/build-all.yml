@@ -10,7 +10,9 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v4
-
+        
+      - name: Delete huge unnecessary tools folder
+        run: rm -rf /opt/hostedtoolcache
 
       - name: Show ubuntu details
         run: |
