@@ -147,7 +147,9 @@ else
     echo "Warning: mali_csffw.bin.zst not found, skipping extraction."
 fi
 
-
+# enable wifi and bluetooth 
+unzstd -d $1/lib/firmware/iwl*
+unzstd -d $1/lib/firmware/intel/ibt*
 # waydroid
 chroot $1 /bin/bash -c "curl -fsS https://repo.waydro.id | bash && apt install waydroid -y"
 
