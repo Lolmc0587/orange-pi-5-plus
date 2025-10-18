@@ -1,5 +1,12 @@
+# Build all workflow
 name: build-all
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      linux_ref:
+        description: 'Linux repository branch or tag to clone (branch or tag name)'
+        required: false
+        default: 'master'
 #workflow_dispatch
 #[push]
 jobs:
@@ -36,6 +43,7 @@ jobs:
 
 
       - name: Clone
+        
         run: |
           mkdir arm64
           sudo mount -t tmpfs -o size=6G tmpfs arm64
@@ -43,8 +51,9 @@ jobs:
           cp uboot/u-boot-rockchip.bin .
           cd arm64
 
-          #git clone --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-          git clone --depth 1 https://github.com/torvalds/linux.git
+          # Clone only the requested branch or tag to save time and space
+          # If LINUX_REF is a tag name or branch name, --branch and --single-branch will fetch only that ref
+          git clone --depth 1 --branch "v6.18-rc1" --single-branch https://github.com/torvalds/linux.git
           #now=`cat linux-next/localversion-next|sed 's/-next-//'`
           #rm      linux-next/localversion-next
           now=`date +"%Y%m%d"`
