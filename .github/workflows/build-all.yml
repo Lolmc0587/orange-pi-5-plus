@@ -1,12 +1,6 @@
 # Build all workflow
 name: build-all
-on:
-  workflow_dispatch:
-    inputs:
-      linux_ref:
-        description: 'Linux repository branch or tag to clone (branch or tag name)'
-        required: false
-        default: 'master'
+on: workflow_dispatch
 #workflow_dispatch
 #[push]
 jobs:
