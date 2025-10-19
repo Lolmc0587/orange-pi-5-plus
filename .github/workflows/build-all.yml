@@ -16,7 +16,7 @@ jobs:
           dotnet: true
           haskell: true
           large-packages: true
-          swap-storage: true
+          # swap-storage: true
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v4
