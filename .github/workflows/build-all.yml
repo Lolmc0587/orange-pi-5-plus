@@ -47,7 +47,7 @@ jobs:
 
           # Clone only the requested branch or tag to save time and space
           # If LINUX_REF is a tag name or branch name, --branch and --single-branch will fetch only that ref
-          git clone --depth 1 --branch "v6.18-rc1" --single-branch https://github.com/torvalds/linux.git
+          git clone --depth 1 --branch "v7.0" --single-branch https://github.com/torvalds/linux.git
           #now=`cat linux-next/localversion-next|sed 's/-next-//'`
           #rm      linux-next/localversion-next
           now=`date +"%Y%m%d"`
