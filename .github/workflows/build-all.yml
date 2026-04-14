@@ -49,6 +49,7 @@ jobs:
              PYTHON=python3"
           #cd linux-next
           cd linux
+          sed -i '/ret = rkvdec_disable_multicore(rkvdec);/,/return ret;/ s/^\([[:space:]]*\)/\1\/\/ /' drivers/media/platform/rockchip/rkvdec/rkvdec.c
           # sed -i 's#opp-300000000#/* opp-300000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
           # sed -i 's#opp-600000000#*/ opp-600000000#' arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
           
